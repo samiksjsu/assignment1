@@ -42,29 +42,36 @@
                     else.</small>
             </div>
 
-            <p style="display: none;" id="latitude"></p>
-            <p style="display: none;" id="longitude"></p>
+            <p id="latitude"></p>
+            <p id="longitude"></p>
 
-            <button type="submit" class="btn btn-warning" id="submit" name="submit" value="submit">Get Current
-                Location</button>
+            <button type="submit" class="btn btn-warning" id="submit" name="submit" value="submit">
+                Login
+            </button>
+
+            <button class="btn btn-danger" id="logout" name="logout" value="logout" onclick="handleLogout(); return false;">
+                Log Out
+            </button>
         </form>
     </div>
 </body>
 
 <script>
 
-    const user = localStorage.getItem('user')
-    console.table(JSON.parse(user))
+    // get the user from localStorage
+    const user = JSON.parse(localStorage.getItem('user'))
+    if (user) {
+        document.getElementById('name').value = user.name
+        document.getElementById('email').value = user.email
+    }
 
+    // get the password from sessionStorage
     const password = sessionStorage.getItem('password')
-
     if (password) {
-        console.log(JSON.parse(password).password)
         document.getElementById('password').value = JSON.parse(password).password
     }
 
-    handleSubmit = (e) => {
-
+    const handleSubmit = (e) => {
 
         localStorage.setItem('user', JSON.stringify({
             'name': document.getElementById('name').value,
@@ -88,14 +95,23 @@
                 const latitude = document.getElementById('latitude')
                 const longitude = document.getElementById('longitude')
 
-                latitude.style.display = 'block'
+                // display the coordinates
                 latitude.innerText = `Latitude: ${response.location.lat.toFixed(2)}`
-
-                longitude.style.display = 'block'
                 longitude.innerText = `Longitude: ${response.location.lng.toFixed(2)}`
 
             }
         }
+    }
+
+    const handleLogout = () => {
+        localStorage.removeItem('user')
+        sessionStorage.removeItem('password')
+
+        document.getElementById('name').value = ""
+        document.getElementById('password').value = ""
+        document.getElementById('email').value = ""
+        document.getElementById('latitude').innerText = ""
+        document.getElementById('longitude').innerText = ""
     }
 
 </script>
