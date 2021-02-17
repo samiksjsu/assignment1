@@ -44,26 +44,58 @@ var getWeatherForPerson = function (...args) {
 }
 
 // input received as input
-var input = ['Student', { length: 2 }, student2, student1]
+var input = ['Student, length, objects', { length: 2 }, student2, student1]
 
-if (!input.includes('Student')) return
+// closures
+const process = ((input) => {
 
-const [type, metadata] = input
+    var processCount = 0;
 
-if (typeof type === 'string' && metadata.length === 2) {
-    const students = input.slice(2, 4)
+    // get rid of the extra data from the input
+    input[0] = input[0].split(',')[0]
 
-    students.forEach((student) => {
+    // check if the input contains any special characters and the word Student
+    if (/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(input[0]) && !input.includes('Student')) {
+        console.log('Invalid Input')
+        return
+    }
 
-        if (student instanceof Student) {
-            getWeatherForPerson.call(student)
+    const [type, metadata] = input
 
-            getWeatherForPerson.apply(student, ['San Jose State University', 'Software Engineering'])
-        } else {
-            return
-        }
-    })
+    // further validations before starting the processing
+    if (typeof type === 'string' && metadata.length === 2) {
+        const students = input.slice(2, 4)
 
-    // calling static method after the process is finished
-    Student.finish()
+        students.forEach((student) => {
+
+            if (student instanceof Student) {
+                getWeatherForPerson.call(student)
+
+                getWeatherForPerson.apply(student, ['San Jose State University', 'Software Engineering'])
+            } else {
+                return
+            }
+        })
+
+        // calling static method after the process is finished
+        Student.finish()
+    }
+
+    return function () { processCount += 1; return processCount }
+})(input)
+
+// define external functions to be later bind with objects
+const getName = function () {
+    console.log(`The name of the student is: ${this.firstName} ${this.lastName}`)
 }
+
+// binding the getName function to the objects
+const getNameBound = getName.bind(student1)
+
+getNameBound()
+
+// start the processing
+process(input)
+process(input)
+const processCount = process(input)
+console.log(processCount)
