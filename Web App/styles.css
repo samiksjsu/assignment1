@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: rgb(207, 207, 207);
+    width: 20%;
+    height: fit-content;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+input:invalid:focus {
+    outline: none !important;
+    border: 2px solid #ea4335;
+    box-shadow: 0 0 10px #ea4335;
+}
+
+input:valid:focus {
+    outline: none !important;
+    border: 2px solid #34a853;
+    box-shadow: 0 0 10px #34a853;
+}
+
+.weather-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: fit-content;
+    width: fit-content;
+}
+
+.coordinate-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1000px;
+    padding: 50px;
+}
+
+.latitude {
+    color: white;
+    font-size: 70px;
+    background-color: rgb(230, 117, 11);
+    width: 700px;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.longitude {
+    background-color: blue;
+    color: white;
+    font-size: 70px;
+    width: 700px;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather-buttons {
+    padding: 20px;
+}

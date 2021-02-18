@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+
+    <title>HTML Demo</title>
+
+</head>
+
+<body>
+    <div class="weather-container">
+        <div class="coordinate-display">
+            <div class="latitude">
+                <p id="latitude"></p>
+            </div>
+            <div class="longitude">
+                <p id="longitude"></p>
+            </div>
+        </div>
+
+        <div class="weather-buttons">
+            <button class="btn btn-success" id="submit" onclick="test(); return false;">
+                Get Daily Weather
+            </button>
+
+            <button class="btn btn-danger" id="submit" onclick="handleLogout(); return false;">
+                Logout
+            </button>
+        </div>
+
+        <div class="daily-weather">
+            <p id="daily-weather-1"></p>
+            <p id="daily-weather-2"></p>
+            <p id="daily-weather-3"></p>
+            <p id="daily-weather-4"></p>
+            <p id="daily-weather-5"></p>
+            <p id="daily-weather-6"></p>
+            <p id="daily-weather-7"></p>
+            <p id="daily-weather-8"></p>
+        </div>
+    </div>
+</body>
+
+<script>
+
+
+    const data = {
+        daily: ["Clear throughout the day.", "Clear throughout the day.", "Overcast throughout the day.", "Partly cloudy throughout the day.",
+        "Clear throughout the day.", "Clear throughout the day.", "Clear throughout the day.", "Partly cloudy throughout the day."]
+    }
+
+    // get the user from localStorage
+    const user = JSON.parse(localStorage.getItem('user'))
+
+    // if no user found redirect to the login page
+    if (!user) {
+        window.location.href = '/index.html'
+    }
+
+    // get the coordinates
+    const { latitude, longitude } = JSON.parse(localStorage.getItem('coordinates'))
+
+    // display them on the page
+    document.getElementById('latitude').innerText = latitude
+    document.getElementById('longitude').innerText = longitude
+
+    const test = () => {
+        const html = "";
+        data.daily.forEach((d, index) => {
+            document.getElementById(`daily-weather-${index + 1}`).innerText = d
+        })
+    }
+
+    const handleLogout = () => {
+        localStorage.removeItem('user')
+        sessionStorage.removeItem('password')
+
+        window.location.href = '/index.html'
+    }
+
+
+
+</script>
+
+</html>
